@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <!-- 加载反馈页控件基础样式 -->
+    <style name="LoadSirStyle">
+        <item name="android:layout_width">wrap_content</item>
+        <item name="android:layout_height">wrap_content</item>
+    </style>
+
+    <!-- 加载反馈页提示样式 -->
+    <style name="LoadSirStyle.Message">
+        <item name="android:layout_marginTop">24dp</item>
+        <item name="android:textColor">@color/loadsir_message_color</item>
+        <item name="android:textSize">16sp</item>
+    </style>
+
+    <!-- 加载反馈页描述样式 -->
+    <style name="LoadSirStyle.Desc">
+        <item name="android:layout_marginTop">8dp</item>
+        <item name="android:textColor">@color/loadsir_desc_color</item>
+        <item name="android:textSize">12sp</item>
+    </style>
+</resources>

@@ -1,0 +1,7 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <!-- 加载反馈页提示颜色 -->
+    <color name="loadsir_message_color">#33475F</color>
+    <!-- 加载反馈页描述颜色 -->
+    <color name="loadsir_desc_color">#727272</color>
+</resources>

@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <!-- 数据加载状态相关 -->
+    <string name="loadsir_loading_message">努力加载中</string>
+    <string name="loadsir_loading_desc">请您耐心等候</string>
+    <string name="loadsir_empty_message">暂无数据</string>
+    <string name="loadsir_error_message">发生了错误</string>
+    <string name="loadsir_error_desc">请检查手机网络是否连接</string>
+</resources>
