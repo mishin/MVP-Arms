@@ -20,7 +20,11 @@ class MainPresenter @Inject constructor(private var apis: LoginApis) :
 
     override fun startLooper() {
         request<JsonObject> {
+            start {
+                Timber.d("1、start：${Thread.currentThread().name}")
+            }
             call {
+                Timber.d("2、call：${Thread.currentThread().name}")
                 val map = mapOf(
                     Pair("loginName", "YTlikai"),
                     Pair("loginPassword", "likai0312"),
@@ -28,8 +32,16 @@ class MainPresenter @Inject constructor(private var apis: LoginApis) :
                 )
                 apis.login(map)
             }
+            process {
+                Timber.d("3、process：${Thread.currentThread().name}")
+                it.data
+            }
             success {
+                Timber.d("4、success：${Thread.currentThread().name}")
                 Timber.d(it.toString())
+            }
+            fail {
+                Timber.d("5、fail：${Thread.currentThread().name}")
             }
         }
     }

@@ -1,20 +1,16 @@
 package com.zkyc.arms.model.http
 
-import androidx.lifecycle.lifecycleScope
 import com.zkyc.arms.base.presenter.BasePresenter
 import com.zkyc.arms.base.view.IView
 import com.zkyc.arms.model.bean.ApiException
 import com.zkyc.arms.model.bean.ApiResponse
-import kotlinx.coroutines.CancellationException
-import kotlinx.coroutines.CoroutineScope
-import kotlinx.coroutines.delay
+import kotlinx.coroutines.*
 import kotlinx.coroutines.flow.collect
 import kotlinx.coroutines.flow.flow
-import kotlinx.coroutines.launch
+import kotlinx.coroutines.flow.flowOn
 import retrofit2.Call
 import retrofit2.await
 import timber.log.Timber
-import java.net.SocketTimeoutException
 
 /**
  * author : Saxxhw
@@ -77,13 +73,9 @@ class Request<T> {
     fun request(scope: CoroutineScope, view: IView?) {
         mStart?.invoke()
         scope.launch {
+            val flow = flow { emit(mCall.invoke().await()) }
             try {
-                flow {
-                    while (true) {
-                        emit(mCall.invoke().await())
-                        delay(3000L)
-                    }
-                }
+                flow.flowOn(Dispatchers.IO)
                     .collect { response ->
                         val data = mProcess.invoke(response)
                         if (response.success()) {
@@ -92,13 +84,6 @@ class Request<T> {
                             throw ApiException.create(response)
                         }
                     }
-//                val response = mCall.invoke().await()
-//                val data = mProcess.invoke(response)
-//                if (response.success()) {
-//                    mSuccess?.invoke(data)
-//                } else {
-//                    throw ApiException.create(response)
-//                }
             } catch (e: CancellationException) {
                 // 取消请求
                 Timber.e(e)

@@ -1,7 +1,6 @@
 package com.zkyc.arms.base.presenter
 
 import androidx.lifecycle.Lifecycle
-import androidx.lifecycle.LifecycleRegistry
 import androidx.lifecycle.OnLifecycleEvent
 import com.zkyc.arms.base.view.IView
 import kotlinx.coroutines.*
