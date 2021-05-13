@@ -4,6 +4,9 @@ import android.app.Activity
 import android.app.Application
 import android.os.Bundle
 import com.kingja.loadsir.core.LoadSir
+import com.scwang.smart.refresh.footer.ClassicsFooter
+import com.scwang.smart.refresh.header.ClassicsHeader
+import com.scwang.smart.refresh.layout.SmartRefreshLayout
 import com.zkyc.arms.BuildConfig
 import com.zkyc.arms.library.EmptyCallback
 import com.zkyc.arms.library.ErrorCallback
@@ -12,6 +15,13 @@ import timber.log.Timber
 import java.util.*
 
 abstract class BaseApplication : Application() {
+
+    init {
+        // 设置全局的Header构建器
+        SmartRefreshLayout.setDefaultRefreshHeaderCreator { context, _ -> ClassicsHeader(context) }
+        // 设置全局的Footer构建器
+        SmartRefreshLayout.setDefaultRefreshFooterCreator { context, _ -> ClassicsFooter(context) }
+    }
 
     // 存储Activity实例的栈
     private val mActivities = Stack<Activity>()

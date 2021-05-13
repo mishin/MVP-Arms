@@ -24,7 +24,8 @@ import org.greenrobot.eventbus.EventBus
  * time   : 2021/4/20 16:44
  * desc   :
  */
-abstract class BaseActivity<VB : ViewBinding> : AppCompatActivity(), IView, Callback.OnReloadListener {
+abstract class BaseActivity<VB : ViewBinding> : AppCompatActivity(), IView,
+    Callback.OnReloadListener {
 
     /**
      * 视图绑定实例

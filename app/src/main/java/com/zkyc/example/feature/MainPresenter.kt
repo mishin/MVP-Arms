@@ -38,7 +38,6 @@ class MainPresenter @Inject constructor(private var apis: LoginApis) :
             }
             success {
                 Timber.d("4、success：${Thread.currentThread().name}")
-                Timber.d(it.toString())
             }
             fail {
                 Timber.d("5、fail：${Thread.currentThread().name}")
