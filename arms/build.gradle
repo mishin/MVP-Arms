@@ -51,7 +51,7 @@ dependencies {
     // 官方控件
     api 'androidx.constraintlayout:constraintlayout:2.0.4'
     // 协程
-    api 'org.jetbrains.kotlinx:kotlinx-coroutines-android:1.3.9'
+    api 'org.jetbrains.kotlinx:kotlinx-coroutines-android:1.4.1'
 
     // 依赖注入
     compileOnly 'com.google.dagger:hilt-android:2.35.1'
@@ -100,7 +100,31 @@ dependencies {
     api 'com.github.fondesa:recycler-view-divider:3.5.0'
 
     // 刷新框架
-    api  'com.scwang.smart:refresh-layout-kernel:2.0.3'      //核心必须依赖
-    api  'com.scwang.smart:refresh-header-classics:2.0.3'    //经典刷新头
-    api  'com.scwang.smart:refresh-footer-classics:2.0.3'    //经典加载
+    api 'com.scwang.smart:refresh-layout-kernel:2.0.3'      //核心必须依赖
+    api 'com.scwang.smart:refresh-header-classics:2.0.3'    //经典刷新头
+    api 'com.scwang.smart:refresh-footer-classics:2.0.3'    //经典加载
+}
+
+// 上传至阿里云maven仓库
+apply plugin: 'maven'
+uploadArchives {
+    repositories {
+        mavenDeployer {
+            repository(url: rootProject.ext.url.release) {
+                authentication(
+                        userName: rootProject.ext.account.userName,
+                        password: rootProject.ext.account.password
+                )
+            }
+            snapshotRepository(url: rootProject.ext.url.snapshot) {
+                authentication(
+                        userName: rootProject.ext.account.userName,
+                        password: rootProject.ext.account.password
+                )
+            }
+            pom.version = rootProject.ext.config.version
+            pom.artifactId = rootProject.ext.config.artifactId
+            pom.groupId = rootProject.ext.config.group
+        }
+    }
 }
