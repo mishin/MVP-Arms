@@ -2,8 +2,10 @@ package com.zkyc.arms.base.fragment
 
 import android.os.Bundle
 import android.view.LayoutInflater
+import android.view.MenuItem
 import android.view.View
 import android.view.ViewGroup
+import androidx.appcompat.widget.Toolbar
 import androidx.fragment.app.Fragment
 import androidx.viewbinding.ViewBinding
 import com.blankj.utilcode.util.ToastUtils
@@ -12,6 +14,7 @@ import com.kingja.loadsir.callback.Callback
 import com.kingja.loadsir.callback.SuccessCallback
 import com.kingja.loadsir.core.LoadService
 import com.kingja.loadsir.core.LoadSir
+import com.zkyc.arms.R
 import com.zkyc.arms.annotation.UseEventBus
 import com.zkyc.arms.base.view.IView
 import com.zkyc.arms.library.EmptyCallback
@@ -26,7 +29,8 @@ import java.util.concurrent.atomic.AtomicBoolean
  * time   : 2021/4/20 17:37
  * desc   :
  */
-abstract class BaseFragment<VB : ViewBinding> : Fragment(), IView, Callback.OnReloadListener {
+abstract class BaseFragment<VB : ViewBinding> : Fragment(), IView, Callback.OnReloadListener,
+    Toolbar.OnMenuItemClickListener {
 
     /**
      * 视图绑定实例
@@ -66,13 +70,28 @@ abstract class BaseFragment<VB : ViewBinding> : Fragment(), IView, Callback.OnRe
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
+        // 设置标题栏
+        val toolbar = view.findViewById<Toolbar>(R.id.toolbar)
+        if (null != toolbar) {
+            toolbar.title = requireActivity().title
+            onNavigationInit(toolbar)
+            val menuId = getMenuId()
+            if (null != menuId) {
+                toolbar.inflateMenu(menuId)
+                toolbar.setOnMenuItemClickListener(this)
+            }
+        }
+
+        //
         mUseEventBus = javaClass.isAnnotationPresent(UseEventBus::class.java)
 
+        // 初始化状态切换工具
         val targetView = getLoadSirTargetView()
         if (null != targetView) {
             mLoadService = LoadSir.getDefault().register(mLoadService, this)
         }
 
+        // 初始化
         onInit(savedInstanceState)
     }
 
@@ -98,6 +117,7 @@ abstract class BaseFragment<VB : ViewBinding> : Fragment(), IView, Callback.OnRe
     }
 
     override fun onDestroy() {
+        dismissProgress()
         super.onDestroy()
         _mBinding = null
     }
@@ -149,13 +169,24 @@ abstract class BaseFragment<VB : ViewBinding> : Fragment(), IView, Callback.OnRe
 
     override fun onReload(v: View?) {}
 
+    override fun onMenuItemClick(item: MenuItem?): Boolean = false
+
     protected open fun onParseData(bundle: Bundle) {}
 
     protected abstract fun onCreateVB(inflater: LayoutInflater, container: ViewGroup?): VB
+
+    protected open fun onNavigationInit(toolbar: Toolbar) {
+        with(toolbar) {
+            setNavigationIcon(R.drawable.ic_baseline_arrow_back_24)
+            setNavigationOnClickListener { requireActivity().onBackPressed() }
+        }
+    }
 
     protected open fun getLoadSirTargetView(): View? = null
 
     protected open fun onInit(savedInstanceState: Bundle?) {}
 
     protected open fun onLazyInit() {}
+
+    protected open fun getMenuId(): Int? = null
 }

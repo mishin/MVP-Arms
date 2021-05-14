@@ -2,8 +2,10 @@ package com.zkyc.arms.base.activity
 
 import android.os.Bundle
 import android.view.LayoutInflater
+import android.view.Menu
 import android.view.View
 import androidx.appcompat.app.AppCompatActivity
+import androidx.appcompat.widget.Toolbar
 import androidx.viewbinding.ViewBinding
 import com.blankj.utilcode.util.ToastUtils
 import com.kaopiz.kprogresshud.KProgressHUD
@@ -11,6 +13,8 @@ import com.kingja.loadsir.callback.Callback
 import com.kingja.loadsir.callback.SuccessCallback
 import com.kingja.loadsir.core.LoadService
 import com.kingja.loadsir.core.LoadSir
+import com.zkyc.arms.R
+import com.zkyc.arms.annotation.HideHomeAsUp
 import com.zkyc.arms.annotation.UseEventBus
 import com.zkyc.arms.base.view.IView
 import com.zkyc.arms.library.EmptyCallback
@@ -45,21 +49,37 @@ abstract class BaseActivity<VB : ViewBinding> : AppCompatActivity(), IView,
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
 
+        // 填充布局
         mBinding = onCreateVB(layoutInflater)
         setContentView(mBinding.root)
 
+        // 设置标题栏
+        val toolbar = findViewById<Toolbar>(R.id.toolbar)
+        if (null != toolbar) {
+            setSupportActionBar(toolbar)
+            val showHomeAsUp = !javaClass.isAnnotationPresent(HideHomeAsUp::class.java)
+            supportActionBar?.setDisplayHomeAsUpEnabled(showHomeAsUp)
+            if (showHomeAsUp) {
+                onNavigationInit(toolbar)
+            }
+        }
+
+        //
         mUseEventBus = javaClass.isAnnotationPresent(UseEventBus::class.java)
 
+        // 初始化状态切换工具
         val targetView = getLoadSirTargetView()
         if (null != targetView) {
             mLoadService = LoadSir.getDefault().register(mLoadService, this)
         }
 
+        // 解析传递至本页的数据
         val bundle = intent?.extras
         if (bundle != null) {
             onParseData(bundle)
         }
 
+        // 初始化
         onInit(savedInstanceState)
     }
 
@@ -75,6 +95,19 @@ abstract class BaseActivity<VB : ViewBinding> : AppCompatActivity(), IView,
         if (mUseEventBus) {
             EventBus.getDefault().unregister(this)
         }
+    }
+
+    override fun onDestroy() {
+        dismissProgress()
+        super.onDestroy()
+    }
+
+    override fun onCreateOptionsMenu(menu: Menu?): Boolean {
+        val menuId = getMenuId()
+        if (null != menuId) {
+            menuInflater.inflate(menuId, menu)
+        }
+        return super.onCreateOptionsMenu(menu)
     }
 
     override fun toast(msg: String?) {
@@ -126,9 +159,14 @@ abstract class BaseActivity<VB : ViewBinding> : AppCompatActivity(), IView,
 
     protected abstract fun onCreateVB(inflater: LayoutInflater): VB
 
+    protected open fun onNavigationInit(toolbar: Toolbar) =
+        toolbar.setNavigationOnClickListener { onBackPressed() }
+
     protected open fun getLoadSirTargetView(): View? = null
 
     protected open fun onParseData(bundle: Bundle) {}
 
     protected open fun onInit(savedInstanceState: Bundle?) {}
+
+    protected open fun getMenuId(): Int? = null
 }

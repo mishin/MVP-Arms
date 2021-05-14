@@ -1,4 +1,4 @@
-package com.zkyc.example.feature
+package com.zkyc.example.feature.main
 
 import com.google.gson.JsonObject
 import com.zkyc.arms.base.presenter.BasePresenter
