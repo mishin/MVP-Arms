@@ -7,6 +7,7 @@ import com.kingja.loadsir.core.LoadSir
 import com.scwang.smart.refresh.footer.ClassicsFooter
 import com.scwang.smart.refresh.header.ClassicsHeader
 import com.scwang.smart.refresh.layout.SmartRefreshLayout
+import com.tencent.mmkv.MMKV
 import com.zkyc.arms.BuildConfig
 import com.zkyc.arms.library.EmptyCallback
 import com.zkyc.arms.library.ErrorCallback
@@ -64,6 +65,8 @@ abstract class BaseApplication : Application() {
         registerActivityLifecycleCallbacks(mActivityLifecycleCallbacks)
         // 初始化日志记录框架
         initTimber()
+        // 初始化MMKV
+        initMMKV()
         // 初始化加载反馈页管理框架
         initLoadSir()
     }
@@ -110,6 +113,14 @@ abstract class BaseApplication : Application() {
                 }
             }
         })
+    }
+
+    /**
+     * 初始化MMKV
+     */
+    private fun initMMKV() {
+        val rootDir = MMKV.initialize(this)
+        Timber.d("mmkv root：$rootDir")
     }
 
     /**

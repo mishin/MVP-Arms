@@ -1,0 +1,18 @@
+ext {
+    // 链接
+    url = [
+            release: 'https://packages.aliyun.com/maven/repository/2102975-release-TRGZAb/',
+            snapshot:'https://packages.aliyun.com/maven/repository/2102975-snapshot-pwp4ck/'
+    ]
+    // 账户相关信息
+    account = [
+            userName: '609cf2309db2b2a61be591b4',
+            password: 'ccGXt-MMXWI_'
+    ]
+    // 配置信息
+    config = [
+            group     : 'com.zkyc.arms',
+            artifactId: 'arms',
+            version   : '0.0.4-SNAPSHOT'
+    ]
+}
