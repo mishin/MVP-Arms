@@ -4,11 +4,9 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.MenuItem
 import androidx.appcompat.widget.Toolbar
-import com.zkyc.arms.annotation.HideHomeAsUp
 import com.zkyc.arms.base.activity.BaseMVPActivity
 import com.zkyc.example.R
 import com.zkyc.example.databinding.MainActivityBinding
-import com.zkyc.example.feature.toolbar.ToolbarActivity
 import dagger.hilt.android.AndroidEntryPoint
 
 /**
@@ -26,7 +24,8 @@ class MainActivity : BaseMVPActivity<MainActivityBinding, MainContract.View, Mai
         super.onInit(savedInstanceState)
         mBinding.startRequest.setOnClickListener {
 //            presenter.startLooper()
-            ToolbarActivity.start(this)
+//            ToolbarActivity.start(this)
+            reLogin()
         }
     }
 

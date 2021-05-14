@@ -1,7 +1,9 @@
 package com.zkyc.example
 
 import com.zkyc.arms.base.BaseApplication
+import com.zkyc.arms.util.ReLoginUtil
 import dagger.hilt.android.HiltAndroidApp
+import timber.log.Timber
 
 /**
  * author : Saxxhw
@@ -10,6 +12,14 @@ import dagger.hilt.android.HiltAndroidApp
  * desc   :
  */
 @HiltAndroidApp
-class App: BaseApplication() {
+class App : BaseApplication() {
 
+    override fun onCreate() {
+        super.onCreate()
+        ReLoginUtil.init({
+            Timber.d("清空缓存")
+        }, {
+            Timber.d("跳转至登录页")
+        })
+    }
 }

@@ -92,7 +92,10 @@ class Request<T> {
                 if (performDefaultErrorLogic) {
                     view?.dismissProgress()
                     view?.showError()
-                    view?.toast(e.message)
+                    view?.toast(e.toStr())
+                    if (e.tokenTimeout()) {
+                        view?.reLogin()
+                    }
                 }
                 mFail?.invoke(e)
             }

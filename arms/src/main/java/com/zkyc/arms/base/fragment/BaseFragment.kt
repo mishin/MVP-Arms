@@ -20,6 +20,7 @@ import com.zkyc.arms.base.view.IView
 import com.zkyc.arms.library.EmptyCallback
 import com.zkyc.arms.library.ErrorCallback
 import com.zkyc.arms.library.LoadingCallback
+import com.zkyc.arms.util.ReLoginUtil
 import org.greenrobot.eventbus.EventBus
 import java.util.concurrent.atomic.AtomicBoolean
 
@@ -165,6 +166,10 @@ abstract class BaseFragment<VB : ViewBinding> : Fragment(), IView, Callback.OnRe
 
     override fun showSuccess() {
         mLoadService?.showCallback(SuccessCallback::class.java)
+    }
+
+    override fun reLogin() {
+        ReLoginUtil.reLogin()
     }
 
     override fun onReload(v: View?) {}

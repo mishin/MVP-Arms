@@ -61,4 +61,9 @@ interface IView {
      * 展示加载成功状态
      */
     fun showSuccess()
+
+    /**
+     * 重新登录
+     */
+    fun reLogin()
 }
