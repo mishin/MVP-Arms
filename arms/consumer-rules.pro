@@ -1,3 +1,6 @@
+#
+-keep class com.zkyc.arms.model.bean.** { <fields>; }
+
 # OkHttp
 
 # Okio
@@ -44,3 +47,5 @@
 # recycler-view-divider
 
 # SmartRefreshLayout
+
+# AHBottomNavigation

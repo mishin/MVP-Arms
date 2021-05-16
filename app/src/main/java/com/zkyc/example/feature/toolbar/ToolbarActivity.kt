@@ -3,6 +3,7 @@ package com.zkyc.example.feature.toolbar
 import android.content.Context
 import android.content.Intent
 import android.view.LayoutInflater
+import com.zkyc.arms.annotation.HideHomeAsUp
 import com.zkyc.arms.base.activity.BaseActivity
 import com.zkyc.example.databinding.ToolbarActivityBinding
 
@@ -12,6 +13,7 @@ import com.zkyc.example.databinding.ToolbarActivityBinding
  * time   : 2021/5/14 10:31
  * desc   :
  */
+@HideHomeAsUp
 class ToolbarActivity : BaseActivity<ToolbarActivityBinding>() {
 
     companion object {

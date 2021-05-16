@@ -21,6 +21,7 @@ class MainPresenter @Inject constructor(private var apis: LoginApis) :
     override fun startLooper() {
         request<JsonObject> {
             start {
+                view?.build("start")
                 Timber.d("1、start：${Thread.currentThread().name}")
             }
             call {
@@ -33,14 +34,19 @@ class MainPresenter @Inject constructor(private var apis: LoginApis) :
                 apis.login(map)
             }
             process {
+                view?.build("process")
                 Timber.d("3、process：${Thread.currentThread().name}")
                 it.data
             }
             success {
+                view?.build("success")
                 Timber.d("4、success：${Thread.currentThread().name}")
+                view?.toast("成功:${it.toString()}")
             }
             fail {
+                view?.build("fail")
                 Timber.d("5、fail：${Thread.currentThread().name}")
+                view?.toast("失败:$it")
             }
         }
     }
@@ -49,7 +55,7 @@ class MainPresenter @Inject constructor(private var apis: LoginApis) :
 interface MainContract {
 
     interface View : IView {
-
+        fun build(str: String)
     }
 
     interface Presenter : IPresenter<View> {

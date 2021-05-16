@@ -4,10 +4,12 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.MenuItem
 import androidx.appcompat.widget.Toolbar
+import com.zkyc.arms.annotation.HideHomeAsUp
 import com.zkyc.arms.base.activity.BaseMVPActivity
 import com.zkyc.example.R
 import com.zkyc.example.databinding.MainActivityBinding
 import dagger.hilt.android.AndroidEntryPoint
+import java.lang.StringBuilder
 
 /**
  * author : Saxxhw
@@ -16,16 +18,17 @@ import dagger.hilt.android.AndroidEntryPoint
  * desc   :
  */
 @AndroidEntryPoint
-class MainActivity : BaseMVPActivity<MainActivityBinding, MainContract.View, MainPresenter>() {
+@HideHomeAsUp
+class MainActivity : BaseMVPActivity<MainActivityBinding, MainContract.View, MainPresenter>(),
+    MainContract.View {
 
     override fun onCreateVB(inflater: LayoutInflater) = MainActivityBinding.inflate(inflater)
 
     override fun onInit(savedInstanceState: Bundle?) {
         super.onInit(savedInstanceState)
         mBinding.startRequest.setOnClickListener {
-//            presenter.startLooper()
+            presenter.startLooper()
 //            ToolbarActivity.start(this)
-            reLogin()
         }
     }
 
@@ -46,5 +49,13 @@ class MainActivity : BaseMVPActivity<MainActivityBinding, MainContract.View, Mai
             }
         }
         return super.onOptionsItemSelected(item)
+    }
+
+    val sb = StringBuilder()
+
+    override fun build(str: String) {
+        sb.append(str)
+        sb.append("\n")
+        mBinding.tv.text = sb.toString()
     }
 }

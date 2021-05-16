@@ -1,5 +1,6 @@
 package com.zkyc.example
 
+import androidx.annotation.Keep
 import com.zkyc.arms.base.BaseApplication
 import com.zkyc.arms.util.ReLoginUtil
 import dagger.hilt.android.HiltAndroidApp
@@ -11,6 +12,7 @@ import timber.log.Timber
  * time   : 2021/5/11 17:47
  * desc   :
  */
+@Keep
 @HiltAndroidApp
 class App : BaseApplication() {
 
