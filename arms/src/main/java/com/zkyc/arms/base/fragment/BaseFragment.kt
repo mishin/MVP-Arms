@@ -140,7 +140,7 @@ abstract class BaseFragment<VB : ViewBinding> : Fragment(), IView, Callback.OnRe
     override fun showProgress() {
         if (null == mHud) {
             mHud = KProgressHUD
-                .create(requireContext())
+                .create(requireActivity())
                 .setStyle(KProgressHUD.Style.SPIN_INDETERMINATE)
         }
         mHud?.show()

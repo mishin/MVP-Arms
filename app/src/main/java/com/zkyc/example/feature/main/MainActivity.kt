@@ -8,6 +8,7 @@ import com.zkyc.arms.annotation.HideHomeAsUp
 import com.zkyc.arms.base.activity.BaseMVPActivity
 import com.zkyc.example.R
 import com.zkyc.example.databinding.MainActivityBinding
+import com.zkyc.example.feature.toolbar.ToolbarActivity
 import dagger.hilt.android.AndroidEntryPoint
 import java.lang.StringBuilder
 
@@ -27,8 +28,8 @@ class MainActivity : BaseMVPActivity<MainActivityBinding, MainContract.View, Mai
     override fun onInit(savedInstanceState: Bundle?) {
         super.onInit(savedInstanceState)
         mBinding.startRequest.setOnClickListener {
-            presenter.startLooper()
-//            ToolbarActivity.start(this)
+//            presenter.startLooper()
+            ToolbarActivity.start(this)
         }
     }
 

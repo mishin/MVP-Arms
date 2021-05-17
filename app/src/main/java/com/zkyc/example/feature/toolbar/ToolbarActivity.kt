@@ -6,6 +6,7 @@ import android.view.LayoutInflater
 import com.zkyc.arms.annotation.HideHomeAsUp
 import com.zkyc.arms.base.activity.BaseActivity
 import com.zkyc.example.databinding.ToolbarActivityBinding
+import dagger.hilt.android.AndroidEntryPoint
 
 /**
  * author : Saxxhw
@@ -14,6 +15,7 @@ import com.zkyc.example.databinding.ToolbarActivityBinding
  * desc   :
  */
 @HideHomeAsUp
+@AndroidEntryPoint
 class ToolbarActivity : BaseActivity<ToolbarActivityBinding>() {
 
     companion object {
