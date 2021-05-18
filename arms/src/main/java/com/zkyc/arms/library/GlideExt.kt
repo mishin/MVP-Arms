@@ -1,29 +1,7 @@
 package com.zkyc.arms.library
 
-import com.bumptech.glide.annotation.GlideExtension
 import com.bumptech.glide.annotation.GlideModule
-import com.bumptech.glide.annotation.GlideOption
 import com.bumptech.glide.module.AppGlideModule
-import com.bumptech.glide.request.BaseRequestOptions
-import com.bumptech.glide.request.RequestOptions
-
-/**
- * author : Saxxhw
- * email  : xingwangwang@cloudinnov.com
- * time   : 2021/4/27 17:21
- * desc   : Glide扩展-剪裁圆形图片
- */
-@GlideExtension
-class GlideExtension private constructor() {
-
-    companion object {
-
-        @GlideOption
-        fun circleCrop(options: BaseRequestOptions<*>): BaseRequestOptions<*> {
-            return options.apply(RequestOptions().circleCrop())
-        }
-    }
-}
 
 /**
  * author : Saxxhw
