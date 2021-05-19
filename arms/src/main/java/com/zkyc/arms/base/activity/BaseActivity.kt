@@ -71,7 +71,7 @@ abstract class BaseActivity<VB : ViewBinding> : AppCompatActivity(), IView,
         // 初始化状态切换工具
         val targetView = getLoadSirTargetView()
         if (null != targetView) {
-            mLoadService = LoadSir.getDefault().register(mLoadService, this)
+            mLoadService = LoadSir.getDefault().register(targetView, this)
         }
 
         // 解析传递至本页的数据

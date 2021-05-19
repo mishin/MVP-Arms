@@ -2,6 +2,7 @@ package com.zkyc.example.feature.toolbar
 
 import android.view.LayoutInflater
 import android.view.MenuItem
+import android.view.View
 import android.view.ViewGroup
 import androidx.lifecycle.lifecycleScope
 import com.zkyc.arms.base.fragment.BaseFragment
@@ -18,10 +19,15 @@ import kotlinx.coroutines.delay
  */
 @AndroidEntryPoint
 class ToolbarFragment : BaseFragment<ToolbarFragmentBinding>() {
+
     override fun onCreateVB(
         inflater: LayoutInflater,
         container: ViewGroup?
     ) = ToolbarFragmentBinding.inflate(inflater, container, false)
+
+    override fun getLoadSirTargetView(): View {
+        return mBinding.rv
+    }
 
     override fun getMenuId() = R.menu.toolbar
 

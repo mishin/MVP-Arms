@@ -89,7 +89,7 @@ abstract class BaseFragment<VB : ViewBinding> : Fragment(), IView, Callback.OnRe
         // 初始化状态切换工具
         val targetView = getLoadSirTargetView()
         if (null != targetView) {
-            mLoadService = LoadSir.getDefault().register(mLoadService, this)
+            mLoadService = LoadSir.getDefault().register(targetView, this)
         }
 
         // 初始化
