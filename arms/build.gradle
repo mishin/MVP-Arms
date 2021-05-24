@@ -93,7 +93,12 @@ dependencies {
     api 'com.blankj:utilcodex:1.30.6'
 
     // RecyclerViewAdapter
-    api 'com.github.CymChad:BaseRecyclerViewAdapterHelper:3.0.6'
+    api('com.github.CymChad:BaseRecyclerViewAdapterHelper:3.0.6') {
+        exclude group: 'androidx.databinding', module: 'databinding-common'
+        exclude group: 'androidx.databinding', module: 'databinding-adapters'
+        exclude group: 'androidx.databinding', module: 'databinding-runtime'
+        exclude group: 'androidx.databinding', module: 'viewbinding'
+    }
     // RecyclerView分割线
     api 'com.github.fondesa:recycler-view-divider:3.5.0'
 
