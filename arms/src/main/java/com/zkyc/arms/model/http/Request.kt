@@ -26,6 +26,11 @@ class Request<T> {
     var performDefaultErrorLogic: Boolean = true
 
     /**
+     * 是否展示异常页
+     */
+    var showErrorPage: Boolean = true
+
+    /**
      * 封装网络请求
      */
     private lateinit var mCall: suspend () -> Call<ApiResponse<T>>
@@ -41,9 +46,14 @@ class Request<T> {
     private var mStart: (() -> Unit)? = null
 
     /**
+     * 请求结束
+     */
+    private var mCompleted: (() -> Unit)? = null
+
+    /**
      * 请求成功
      */
-    private var mSuccess: ((T?) -> Unit)? = null
+    private var mSuccess: ((T) -> Unit)? = null
 
     /**
      * 请求失败
@@ -62,7 +72,11 @@ class Request<T> {
         mStart = start
     }
 
-    infix fun success(success: ((T?) -> Unit)?) {
+    infix fun completed(completed: (() -> Unit)?) {
+        mCompleted = completed
+    }
+
+    infix fun success(success: ((T) -> Unit)?) {
         mSuccess = success
     }
 
@@ -79,7 +93,10 @@ class Request<T> {
                     .collect { response ->
                         val data = mProcess.invoke(response)
                         if (response.success()) {
-                            mSuccess?.invoke(data)
+                            mCompleted?.invoke()
+                            if (null != data) {
+                                mSuccess?.invoke(data)
+                            }
                         } else {
                             throw ApiException.create(response)
                         }
@@ -91,7 +108,9 @@ class Request<T> {
                 Timber.e(e)
                 if (performDefaultErrorLogic) {
                     view?.dismissProgress()
-                    view?.showError()
+                    if (showErrorPage) {
+                        view?.showError()
+                    }
                     view?.toast(e.toStr())
                     if (e.tokenTimeout()) {
                         view?.reLogin()
