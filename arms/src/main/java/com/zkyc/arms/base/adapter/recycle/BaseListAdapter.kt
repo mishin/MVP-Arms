@@ -19,7 +19,7 @@ abstract class BaseListAdapter<T>(diff: DiffUtil.ItemCallback<T>) :
     ListAdapter<T, BaseListAdapter.ViewBindingViewHolder<ViewBinding>>(diff) {
 
     // 数据集
-    private val mList = mutableListOf<T>()
+    private var mList = mutableListOf<T>()
 
     // 列表项点击事件
     private var mItemClickListener: OnItemClickListener<T>? = null
@@ -87,8 +87,7 @@ abstract class BaseListAdapter<T>(diff: DiffUtil.ItemCallback<T>) :
     }
 
     fun set(list: Collection<T>) {
-        mList.clear()
-        mList.addAll(list)
+        mList = list.toMutableList()
         submitList(mList)
     }
 
@@ -130,10 +129,6 @@ abstract class BaseListAdapter<T>(diff: DiffUtil.ItemCallback<T>) :
     fun update(position: Int, block: (T) -> T) {
         mList[position] = block.invoke(mList[position])
         submitList(mList)
-    }
-
-    fun get(position: Int): T {
-        return mList[position]
     }
 
     fun clear() {
