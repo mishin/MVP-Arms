@@ -108,7 +108,7 @@ abstract class BaseApplication : Application() {
     private fun initTimber() {
         Timber.plant(object : Timber.DebugTree() {
             override fun log(priority: Int, tag: String?, message: String, t: Throwable?) {
-                if (BuildConfig.DEBUG) {
+                if (enableLog) {
                     super.log(priority, tag, message, t)
                 }
             }
@@ -136,6 +136,11 @@ abstract class BaseApplication : Application() {
     }
 
     /* ************************ 公共方法 ************************ */
+
+    /**
+     * 是否开启日志打印
+     */
+    open val enableLog: Boolean = false
 
     /**
      * 获取当前Activity实例

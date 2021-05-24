@@ -28,8 +28,8 @@ class MainActivity : BaseMVPActivity<MainActivityBinding, MainContract.View, Mai
     override fun onInit(savedInstanceState: Bundle?) {
         super.onInit(savedInstanceState)
         mBinding.startRequest.setOnClickListener {
-//            presenter.startLooper()
-            ToolbarActivity.start(this)
+            presenter.startLooper()
+//            ToolbarActivity.start(this)
         }
     }
 

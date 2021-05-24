@@ -8,11 +8,11 @@ package com.zkyc.arms.util
  */
 object ReLoginUtil {
 
-    private var mClearCache: (() -> Unit)? = null
+    private var mLogout: (() -> Unit)? = null
     private var mToLoginPage: (() -> Unit)? = null
 
-    fun init(clearCache: (() -> Unit), toLoginPage: (() -> Unit)) {
-        mClearCache = clearCache
+    fun init(logout: (() -> Unit), toLoginPage: (() -> Unit)) {
+        mLogout = logout
         mToLoginPage = toLoginPage
     }
 
@@ -20,7 +20,7 @@ object ReLoginUtil {
      * 重新登录
      */
     fun reLogin() {
-        mClearCache?.invoke()
+        mLogout?.invoke()
         mToLoginPage?.invoke()
     }
 }
