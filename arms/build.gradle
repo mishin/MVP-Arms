@@ -92,13 +92,14 @@ dependencies {
     // 工具类库
     api 'com.blankj:utilcodex:1.30.6'
 
+    // RecyclerViewAdapter
+    api 'com.github.CymChad:BaseRecyclerViewAdapterHelper:3.0.6'
     // RecyclerView分割线
     api 'com.github.fondesa:recycler-view-divider:3.5.0'
 
     // 刷新框架
     api 'com.scwang.smart:refresh-layout-kernel:2.0.3'      //核心必须依赖
     api 'com.scwang.smart:refresh-header-classics:2.0.3'    //经典刷新头
-    api 'com.scwang.smart:refresh-footer-classics:2.0.3'    //经典加载
 
     // 底部导航栏
     api 'com.aurelhubert:ahbottomnavigation:2.3.4'
