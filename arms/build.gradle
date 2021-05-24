@@ -92,10 +92,6 @@ dependencies {
     // 工具类库
     api 'com.blankj:utilcodex:1.30.6'
 
-    // RecyclerView Adapter
-    api "com.mikepenz:fastadapter:5.4.1"
-    api "com.mikepenz:fastadapter-extensions-binding:5.4.1"
-    api "com.mikepenz:fastadapter-extensions-diff:5.4.1"
     // RecyclerView分割线
     api 'com.github.fondesa:recycler-view-divider:3.5.0'
 

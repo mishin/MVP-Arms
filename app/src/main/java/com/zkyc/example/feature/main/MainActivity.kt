@@ -8,7 +8,6 @@ import com.zkyc.arms.annotation.HideHomeAsUp
 import com.zkyc.arms.base.activity.BaseMVPActivity
 import com.zkyc.example.R
 import com.zkyc.example.databinding.MainActivityBinding
-import com.zkyc.example.feature.toolbar.ToolbarActivity
 import dagger.hilt.android.AndroidEntryPoint
 import java.lang.StringBuilder
 
