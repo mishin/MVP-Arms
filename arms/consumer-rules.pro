@@ -46,6 +46,4 @@
 
 # recycler-view-divider
 
-# SmartRefreshLayout
-
 # AHBottomNavigation

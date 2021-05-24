@@ -50,6 +50,7 @@ dependencies {
     api 'com.google.android.material:material:1.2.1'
     // 官方控件
     api 'androidx.constraintlayout:constraintlayout:2.0.4'
+    api 'androidx.swiperefreshlayout:swiperefreshlayout:1.2.0-alpha01'
     // 协程
     api 'org.jetbrains.kotlinx:kotlinx-coroutines-android:1.4.1'
 
@@ -101,10 +102,6 @@ dependencies {
     }
     // RecyclerView分割线
     api 'com.github.fondesa:recycler-view-divider:3.5.0'
-
-    // 刷新框架
-    api 'com.scwang.smart:refresh-layout-kernel:2.0.3'      //核心必须依赖
-    api 'com.scwang.smart:refresh-header-classics:2.0.3'    //经典刷新头
 
     // 底部导航栏
     api 'com.aurelhubert:ahbottomnavigation:2.3.4'
