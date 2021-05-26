@@ -100,6 +100,7 @@ abstract class BaseActivity<VB : ViewBinding> : AppCompatActivity(), IView,
 
     override fun onDestroy() {
         dismissProgress()
+        ToastUtils.cancel()
         super.onDestroy()
     }
 

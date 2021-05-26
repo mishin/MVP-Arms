@@ -119,6 +119,7 @@ abstract class BaseFragment<VB : ViewBinding> : Fragment(), IView, Callback.OnRe
 
     override fun onDestroy() {
         dismissProgress()
+        ToastUtils.cancel()
         super.onDestroy()
         _mBinding = null
     }
