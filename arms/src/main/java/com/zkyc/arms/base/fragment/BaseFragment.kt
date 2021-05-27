@@ -43,7 +43,8 @@ abstract class BaseFragment<VB : ViewBinding> : Fragment(), IView, Callback.OnRe
     private var mUseEventBus: Boolean = false
 
     // 初始化标识
-    private var mInitialized = AtomicBoolean(false)
+    private val _mInitialized = AtomicBoolean(false)
+    protected val mInitialized get() = _mInitialized.get()
 
     // 加载进度对话框
     private var mHud: KProgressHUD? = null
@@ -105,7 +106,7 @@ abstract class BaseFragment<VB : ViewBinding> : Fragment(), IView, Callback.OnRe
 
     override fun onResume() {
         super.onResume()
-        if (mInitialized.compareAndSet(false, true)) {
+        if (_mInitialized.compareAndSet(false, true)) {
             onLazyInit()
         }
     }
