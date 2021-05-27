@@ -19,9 +19,9 @@ abstract class BaseMVPFragment<VB : ViewBinding, V : IView, P : IPresenter<V>> :
     lateinit var presenter: P
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
-        super.onViewCreated(view, savedInstanceState)
         @Suppress("UNCHECKED_CAST") presenter.bindView(this as V)
         lifecycle.addObserver(presenter)
+        super.onViewCreated(view, savedInstanceState)
     }
 
     override fun onDestroy() {
