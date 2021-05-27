@@ -1,7 +1,6 @@
 package com.zkyc.arms.base.fragment
 
 import android.os.Bundle
-import android.view.View
 import androidx.viewbinding.ViewBinding
 import com.zkyc.arms.base.presenter.IPresenter
 import com.zkyc.arms.base.view.IView
@@ -18,10 +17,10 @@ abstract class BaseMVPFragment<VB : ViewBinding, V : IView, P : IPresenter<V>> :
     @Inject
     lateinit var presenter: P
 
-    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+    override fun onInit(savedInstanceState: Bundle?) {
         @Suppress("UNCHECKED_CAST") presenter.bindView(this as V)
         lifecycle.addObserver(presenter)
-        super.onViewCreated(view, savedInstanceState)
+        super.onInit(savedInstanceState)
     }
 
     override fun onDestroy() {

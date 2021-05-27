@@ -18,10 +18,10 @@ abstract class BaseMVPActivity<VB : ViewBinding, V : IView, P : IPresenter<V>> :
     @Inject
     lateinit var presenter: P
 
-    override fun onCreate(savedInstanceState: Bundle?) {
+    override fun onInit(savedInstanceState: Bundle?) {
         @Suppress("UNCHECKED_CAST") presenter.bindView(this as V)
         lifecycle.addObserver(presenter)
-        super.onCreate(savedInstanceState)
+        super.onInit(savedInstanceState)
     }
 
     override fun onDestroy() {
