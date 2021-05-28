@@ -54,9 +54,15 @@ abstract class BaseFragment<VB : ViewBinding> : Fragment(), IView, Callback.OnRe
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
+        // 解析传递至本页的数据
         val bundle = arguments
         if (bundle != null) {
             onParseData(bundle)
+        }
+        //
+        mUseEventBus = javaClass.isAnnotationPresent(UseEventBus::class.java)
+        if (mUseEventBus) {
+            EventBus.getDefault().register(this)
         }
     }
 
@@ -84,9 +90,6 @@ abstract class BaseFragment<VB : ViewBinding> : Fragment(), IView, Callback.OnRe
             }
         }
 
-        //
-        mUseEventBus = javaClass.isAnnotationPresent(UseEventBus::class.java)
-
         // 初始化状态切换工具
         val targetView = getLoadSirTargetView()
         if (null != targetView) {
@@ -97,13 +100,6 @@ abstract class BaseFragment<VB : ViewBinding> : Fragment(), IView, Callback.OnRe
         onInit(savedInstanceState)
     }
 
-    override fun onStart() {
-        super.onStart()
-        if (mUseEventBus) {
-            EventBus.getDefault().register(this)
-        }
-    }
-
     override fun onResume() {
         super.onResume()
         if (_mInitialized.compareAndSet(false, true)) {
@@ -111,18 +107,14 @@ abstract class BaseFragment<VB : ViewBinding> : Fragment(), IView, Callback.OnRe
         }
     }
 
-    override fun onStop() {
-        super.onStop()
+    override fun onDestroy() {
+        _mBinding = null
+        dismissProgress()
+        ToastUtils.cancel()
         if (mUseEventBus) {
             EventBus.getDefault().unregister(this)
         }
-    }
-
-    override fun onDestroy() {
-        dismissProgress()
-        ToastUtils.cancel()
         super.onDestroy()
-        _mBinding = null
     }
 
     override fun toast(msg: String?) {

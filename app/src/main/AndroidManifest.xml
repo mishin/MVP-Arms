@@ -25,6 +25,10 @@
         <activity
             android:name=".feature.toolbar.ToolbarActivity"
             android:label="标题栏测试" />
+
+        <activity
+            android:name=".feature.vp.VPActivity"
+            android:label="测试ViewPager2" />
     </application>
 
 </manifest>

@@ -67,6 +67,9 @@ abstract class BaseActivity<VB : ViewBinding> : AppCompatActivity(), IView,
 
         //
         mUseEventBus = javaClass.isAnnotationPresent(UseEventBus::class.java)
+        if (mUseEventBus) {
+            EventBus.getDefault().register(this)
+        }
 
         // 初始化状态切换工具
         val targetView = getLoadSirTargetView()
@@ -84,23 +87,12 @@ abstract class BaseActivity<VB : ViewBinding> : AppCompatActivity(), IView,
         onInit(savedInstanceState)
     }
 
-    override fun onStart() {
-        super.onStart()
-        if (mUseEventBus) {
-            EventBus.getDefault().register(this)
-        }
-    }
-
-    override fun onStop() {
-        super.onStop()
-        if (mUseEventBus) {
-            EventBus.getDefault().unregister(this)
-        }
-    }
-
     override fun onDestroy() {
         dismissProgress()
         ToastUtils.cancel()
+        if (mUseEventBus) {
+            EventBus.getDefault().unregister(this)
+        }
         super.onDestroy()
     }
 

@@ -5,11 +5,14 @@ import android.view.MenuItem
 import android.view.View
 import android.view.ViewGroup
 import androidx.lifecycle.lifecycleScope
+import com.zkyc.arms.annotation.UseEventBus
 import com.zkyc.arms.base.fragment.BaseFragment
 import com.zkyc.example.R
 import com.zkyc.example.databinding.ToolbarFragmentBinding
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.delay
+import org.greenrobot.eventbus.Subscribe
+import org.greenrobot.eventbus.ThreadMode
 
 /**
  * author : Saxxhw
@@ -18,6 +21,7 @@ import kotlinx.coroutines.delay
  * desc   :
  */
 @AndroidEntryPoint
+@UseEventBus
 class ToolbarFragment : BaseFragment<ToolbarFragmentBinding>() {
 
     override fun onCreateVB(
@@ -53,5 +57,10 @@ class ToolbarFragment : BaseFragment<ToolbarFragmentBinding>() {
             dismissProgress()
 
         }
+    }
+
+    @Subscribe(threadMode = ThreadMode.MAIN)
+    fun onMessageEvent(event: String) {
+        /* Do something */
     }
 }
