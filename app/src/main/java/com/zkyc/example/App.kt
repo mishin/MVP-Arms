@@ -16,6 +16,9 @@ import timber.log.Timber
 @HiltAndroidApp
 class App : BaseApplication() {
 
+    override val enableLog: Boolean
+        get() = BuildConfig.DEBUG
+
     override fun onCreate() {
         super.onCreate()
         ReLoginUtil.init({

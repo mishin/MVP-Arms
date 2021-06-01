@@ -7,13 +7,14 @@ import androidx.appcompat.widget.Toolbar
 import com.zkyc.arms.annotation.HideHomeAsUp
 import com.zkyc.arms.annotation.UseEventBus
 import com.zkyc.arms.base.activity.BaseMVPActivity
+import com.zkyc.arms.widget.SearchEditText
 import com.zkyc.example.R
 import com.zkyc.example.databinding.MainActivityBinding
-import com.zkyc.example.feature.toolbar.ToolbarActivity
 import com.zkyc.example.feature.vp.VPActivity
 import dagger.hilt.android.AndroidEntryPoint
 import org.greenrobot.eventbus.Subscribe
 import org.greenrobot.eventbus.ThreadMode
+import timber.log.Timber
 
 
 /**
@@ -37,6 +38,12 @@ class MainActivity : BaseMVPActivity<MainActivityBinding, MainContract.View, Mai
 //            ToolbarActivity.start(this)
             VPActivity.start(this)
         }
+
+        mBinding.etSearch.setOnTextChangedListener(object : SearchEditText.OnTextChangedListener {
+            override fun afterTextChanged(text: String?) {
+                Timber.d("------------> $text")
+            }
+        })
     }
 
     override fun onNavigationInit(toolbar: Toolbar) {
