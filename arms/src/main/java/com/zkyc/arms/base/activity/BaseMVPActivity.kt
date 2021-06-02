@@ -1,6 +1,7 @@
 package com.zkyc.arms.base.activity
 
 import android.os.Bundle
+import androidx.lifecycle.Lifecycle
 import androidx.viewbinding.ViewBinding
 import com.zkyc.arms.base.presenter.IPresenter
 import com.zkyc.arms.base.view.IView
@@ -19,21 +20,11 @@ abstract class BaseMVPActivity<VB : ViewBinding, V : IView, P : IPresenter<V>> :
     lateinit var presenter: P
 
     override fun onInit(savedInstanceState: Bundle?) {
-        initPresenter()
+        initPresenter(lifecycle)
         super.onInit(savedInstanceState)
     }
 
-    override fun onDestroy() {
-        removePresenter()
-        super.onDestroy()
-    }
-
-    protected open fun initPresenter() {
-        @Suppress("UNCHECKED_CAST") presenter.bindView(this as V)
-        lifecycle.addObserver(presenter)
-    }
-
-    protected open fun removePresenter() {
-        lifecycle.removeObserver(presenter)
+    protected open fun initPresenter(lifecycle: Lifecycle) {
+        @Suppress("UNCHECKED_CAST") presenter.bind(lifecycle, this as V)
     }
 }

@@ -11,12 +11,16 @@ import kotlinx.coroutines.*
  * time   : 2021/4/20 16:27
  * desc   : P层基类
  */
- abstract class BasePresenter<V : IView> : IPresenter<V>, CoroutineScope by CoroutineScope(Job() + Dispatchers.Main) {
+abstract class BasePresenter<V : IView> : IPresenter<V>,
+    CoroutineScope by CoroutineScope(Job() + Dispatchers.Main) {
 
+    private var mLifecycle: Lifecycle? = null
     var view: V? = null
 
-    override fun bindView(view: V) {
+    override fun bind(lifecycle: Lifecycle, view: V) {
+        mLifecycle = lifecycle
         this.view = view
+        mLifecycle?.addObserver(this)
     }
 
     @OnLifecycleEvent(Lifecycle.Event.ON_CREATE)
@@ -47,6 +51,8 @@ import kotlinx.coroutines.*
     @OnLifecycleEvent(Lifecycle.Event.ON_DESTROY)
     override fun onDestroy() {
         cancel()
+        mLifecycle?.removeObserver(this)
+        mLifecycle = null
         view = null
     }
 }

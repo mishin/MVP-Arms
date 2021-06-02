@@ -1,5 +1,6 @@
 package com.zkyc.arms.base.presenter
 
+import androidx.lifecycle.Lifecycle
 import androidx.lifecycle.LifecycleObserver
 import com.zkyc.arms.base.view.IView
 
@@ -10,7 +11,7 @@ import com.zkyc.arms.base.view.IView
  * desc   : P层接口
  */
 interface IPresenter<in V : IView> : LifecycleObserver {
-    fun bindView(view: V)
+    fun bind(lifecycle: Lifecycle, view: V)
     fun onCreate()
     fun onStart()
     fun onResume()
