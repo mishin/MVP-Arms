@@ -78,6 +78,9 @@ class NineGridView @JvmOverloads constructor(
     val missingCount: Int
         get() = mMaxItemCount - mAdapter.dataSize
 
+    val images: List<String>
+        get() = mAdapter.getList()
+
     fun addData(data: String?) {
         if (data.isNullOrEmpty()) return
         mAdapter.addItem(data)
