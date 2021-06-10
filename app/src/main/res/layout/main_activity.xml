@@ -4,6 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:background="#26cc5c"
     tools:context=".feature.main.MainActivity">
 
     <com.google.android.material.appbar.MaterialToolbar
@@ -11,6 +12,7 @@
         style="@style/Widget.MaterialComponents.Toolbar.Primary"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:fitsSystemWindows="true"
         app:layout_constraintTop_toTopOf="parent" />
 
     <LinearLayout
@@ -31,13 +33,28 @@
             android:id="@+id/tv"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:gravity="center" />
+            android:gravity="center"
+            android:visibility="gone" />
 
         <com.zkyc.arms.widget.SearchEditText
             android:id="@+id/et_search"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:visibility="gone"
             app:search_limit="5000" />
+
+        <com.zkyc.arms.widget.NineGridView
+            android:id="@+id/ngv"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="8dp"
+            android:background="@color/white"
+            android:horizontalSpacing="8dp"
+            android:numColumns="5"
+            android:padding="8dp"
+            android:verticalSpacing="8dp"
+            app:ngv_editable="true"
+            app:ngv_maxItemCount="5" />
     </LinearLayout>
 
 </androidx.constraintlayout.widget.ConstraintLayout>

@@ -44,6 +44,16 @@ class MainActivity : BaseMVPActivity<MainActivityBinding, MainContract.View, Mai
                 Timber.d("------------> $text")
             }
         })
+
+        mBinding.ngv.addData(
+            listOf(
+                "https://img.yzcdn.cn/vant/cat.jpeg",
+                "https://img.yzcdn.cn/vant/cat.jpeg",
+                "https://img.yzcdn.cn/vant/cat.jpeg",
+                "https://img.yzcdn.cn/vant/cat.jpeg",
+                "https://img.yzcdn.cn/vant/cat.jpeg"
+            )
+        )
     }
 
     override fun onNavigationInit(toolbar: Toolbar) {
@@ -65,7 +75,7 @@ class MainActivity : BaseMVPActivity<MainActivityBinding, MainContract.View, Mai
         return super.onOptionsItemSelected(item)
     }
 
-    val sb = StringBuilder()
+    private val sb = StringBuilder()
 
     override fun build(str: String) {
         sb.append(str)
