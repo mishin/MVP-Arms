@@ -7,6 +7,8 @@ import androidx.appcompat.widget.Toolbar
 import com.zkyc.arms.annotation.HideHomeAsUp
 import com.zkyc.arms.annotation.UseEventBus
 import com.zkyc.arms.base.activity.BaseMVPActivity
+import com.zkyc.arms.library.startPictureSelector
+import com.zkyc.arms.widget.NineGridView
 import com.zkyc.arms.widget.SearchEditText
 import com.zkyc.example.R
 import com.zkyc.example.databinding.MainActivityBinding
@@ -45,15 +47,22 @@ class MainActivity : BaseMVPActivity<MainActivityBinding, MainContract.View, Mai
             }
         })
 
-        mBinding.ngv.addData(
-            listOf(
-                "https://img.yzcdn.cn/vant/cat.jpeg",
-                "https://img.yzcdn.cn/vant/cat.jpeg",
-                "https://img.yzcdn.cn/vant/cat.jpeg",
-                "https://img.yzcdn.cn/vant/cat.jpeg",
-                "https://img.yzcdn.cn/vant/cat.jpeg"
-            )
-        )
+//        mBinding.ngv.addData(
+//            listOf(
+//                "https://img.yzcdn.cn/vant/cat.jpeg",
+//                "https://img.yzcdn.cn/vant/cat.jpeg",
+//                "https://img.yzcdn.cn/vant/cat.jpeg",
+//                "https://img.yzcdn.cn/vant/cat.jpeg",
+//                "https://img.yzcdn.cn/vant/cat.jpeg"
+//            )
+//        )
+        mBinding.ngv.setOnAddPictureClickListener(object : NineGridView.OnAddPictureClickListener {
+            override fun addPictureClick() {
+                startPictureSelector(mBinding.ngv.missingCount) {
+                    mBinding.ngv.addData(it)
+                }
+            }
+        })
     }
 
     override fun onNavigationInit(toolbar: Toolbar) {

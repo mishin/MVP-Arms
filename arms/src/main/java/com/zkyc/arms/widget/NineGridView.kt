@@ -12,7 +12,7 @@ import com.zkyc.arms.R
 import com.zkyc.arms.base.adapter.list.BaseAdapter
 import com.zkyc.arms.databinding.NgvItemBinding
 import com.zkyc.arms.extension.load
-import com.zkyc.arms.util.TransfereeUtil
+import com.zkyc.arms.library.TransfereeUtil
 
 /**
  * author : Saxxhw

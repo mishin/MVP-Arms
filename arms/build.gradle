@@ -111,6 +111,9 @@ dependencies {
     // 图片预览
     implementation 'com.github.Hitomis.transferee:Transferee:1.6.1'
     implementation 'com.github.Hitomis.transferee:GlideImageLoader:1.6.1'
+
+    // 图片选择器
+    implementation 'io.github.lucksiege:pictureselector:v2.7.3-rc02'
 }
 
 // 上传至阿里云maven仓库

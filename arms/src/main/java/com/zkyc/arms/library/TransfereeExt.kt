@@ -1,4 +1,4 @@
-package com.zkyc.arms.util
+package com.zkyc.arms.library
 
 import android.content.Context
 import android.widget.AbsListView
@@ -12,9 +12,10 @@ import com.vansz.glideimageloader.GlideImageLoader
 /**
  * author : Saxxhw
  * email  : xingwangwang@cloudinnov.com
- * time   : 2021/6/10 13:37
+ * time   : 2021/6/10 14:32
  * desc   :
  */
+
 class TransfereeUtil private constructor() {
 
     companion object {
@@ -80,5 +81,6 @@ class TransfereeUtil private constructor() {
 
     fun destroy() {
         mTransfer?.destroy()
+        mTransfer = null
     }
 }
