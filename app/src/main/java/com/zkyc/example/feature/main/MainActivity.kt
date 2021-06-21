@@ -38,7 +38,8 @@ class MainActivity : BaseMVPActivity<MainActivityBinding, MainContract.View, Mai
         mBinding.startRequest.setOnClickListener {
 //            presenter.startLooper()
 //            ToolbarActivity.start(this)
-            VPActivity.start(this)
+//            VPActivity.start(this)
+            FireAlarmDialog.show(supportFragmentManager)
         }
 
         mBinding.etSearch.setOnTextChangedListener(object : SearchEditText.OnTextChangedListener {
