@@ -50,7 +50,7 @@ class VPActivity : BaseActivity<VpActivityBinding>() {
         BaseSimpleFragmentStateAdapter(activity) {
 
         override fun getItemCount(): Int {
-            return 12
+            return 1
         }
 
         override fun createFragment(position: Int): Fragment {
