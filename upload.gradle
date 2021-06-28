@@ -13,6 +13,6 @@ ext {
     config = [
             group     : 'com.zkyc.arms',
             artifactId: 'arms',
-            version   : '0.0.32-SNAPSHOT'
+            version   : '0.0.33-SNAPSHOT'
     ]
 }
