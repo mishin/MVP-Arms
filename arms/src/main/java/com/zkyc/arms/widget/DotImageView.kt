@@ -105,24 +105,26 @@ class DotImageView @JvmOverloads constructor(
             mMatrix = Matrix()
         }
         mPhotoView.getSuppMatrix(mMatrix)
-        val layout = LayoutInflater.from(context).inflate(R.layout.dot_image_view, this, false).apply {
-            tag = dot
-            val newX = dot.sx * (mTempRectF.left - mTempRectF.right)
-            x = mTempRectF.left + newX
-            val newY = dot.sy * (mTempRectF.bottom - mTempRectF.right)
-            y = mTempRectF.top + newY
-            findViewById<ImageView>(R.id.iv_icon).run {
-                setImageResource(dot.icon)
-            }
-            findViewById<ImageView>(R.id.iv_bg).run {
-                isInvisible = !dot.selected
-                if (isVisible) {
-                    GlideApp.with(context).asGif().load(R.drawable.dot_iv_ic_dot_selected).into(this)
+        val layout =
+            LayoutInflater.from(context).inflate(R.layout.dot_image_view, this, false).apply {
+                tag = dot
+                val newX = dot.sx * (mTempRectF.left - mTempRectF.right)
+                x = mTempRectF.left + newX
+                val newY = dot.sy * (mTempRectF.bottom - mTempRectF.right)
+                y = mTempRectF.top + newY
+                findViewById<ImageView>(R.id.iv_icon).run {
+                    setImageResource(dot.icon)
                 }
+                findViewById<ImageView>(R.id.iv_bg).run {
+                    isInvisible = !dot.selected
+                    if (isVisible) {
+                        GlideApp.with(context).asGif().load(R.drawable.dot_iv_ic_dot_selected)
+                            .into(this)
+                    }
+                }
+                setOnClickListener(this@DotImageView)
+                setOnLongClickListener(this@DotImageView)
             }
-            setOnClickListener(this@DotImageView)
-            setOnLongClickListener(this@DotImageView)
-        }
         addView(layout, LayoutParams(mDotWidth, mDotHeight))
         mLayouts.add(layout)
     }
@@ -140,7 +142,13 @@ class DotImageView @JvmOverloads constructor(
     }
 }
 
-data class Dot(val sx: Float, val sy: Float, val icon: Int, val selected: Boolean = false)
+data class Dot(
+    val sx: Float,
+    val sy: Float,
+    val icon: Int,
+    val selected: Boolean = false,
+    val data: Any?,
+)
 
 interface OnLoadReadyListener {
     fun onLoadReady()
