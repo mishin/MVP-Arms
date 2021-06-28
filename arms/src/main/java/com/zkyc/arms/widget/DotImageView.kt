@@ -147,7 +147,7 @@ data class Dot(
     val sy: Float,
     val icon: Int,
     val selected: Boolean = false,
-    val data: Any?,
+    val data: Any? = null,
 )
 
 interface OnLoadReadyListener {
