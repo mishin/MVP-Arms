@@ -92,7 +92,7 @@ class DotImageView @JvmOverloads constructor(
     /* ****************** 公共方法 ****************** */
 
     fun loadImage(any: Any?) {
-        mPhotoView.load(any)
+        mPhotoView.load(context, any)
     }
 
     /**
@@ -145,8 +145,7 @@ class DotImageView @JvmOverloads constructor(
     /**
      * 重置
      */
-    fun reset() {
-        loadImage(null)
+    fun clear() {
         mLayouts.forEach { removeView(it) }
         mLayouts.clear()
     }

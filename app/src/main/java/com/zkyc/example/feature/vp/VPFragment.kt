@@ -1,10 +1,13 @@
 package com.zkyc.example.feature.vp
 
 import android.os.Bundle
+import android.os.Handler
+import android.os.Looper
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.core.os.bundleOf
+import androidx.core.os.postDelayed
 import com.zkyc.arms.annotation.UseEventBus
 import com.zkyc.arms.base.fragment.BaseFragment
 import com.zkyc.arms.widget.Dot
@@ -58,15 +61,31 @@ class VPFragment : BaseFragment<VpFragmentBinding>() {
     override fun onLazyInit() {
         super.onLazyInit()
 
-        mBinding.dotIv.loadImage("https://gimg2.baidu.com/image_search/src=http%3A%2F%2Fnimg.ws.126.net%2F%3Furl%3Dhttp%253A%252F%252Fdingyue.ws.126.net%252F2021%252F0527%252F81198ae1j00qtquv4002jc000hs00oic.jpg%26thumbnail%3D650x2147483647%26quality%3D80%26type%3Djpg&refer=http%3A%2F%2Fnimg.ws.126.net&app=2002&size=f9999,10000&q=a80&n=0&g=0n&fmt=jpeg?sec=1627199075&t=db4f5612abecea4f3047f3c71a87d833")
+        mBinding.dotIv.loadImage("http://ci-image.gz.bcebos.com/yunApi/plane_graph/201805/3a06328a27644fce9c6dd1404c597d52.jpg")
         initIcon()
 
-        mBinding.dotIv.setOnDotClickListener(object : OnDotClickListener {
-            override fun onDotClick(v: View) {
-                val dot = v.tag as Dot
-                Timber.d("------------ $dot")
+        Handler(Looper.getMainLooper()).postDelayed(2000L) {
+
+            mBinding.dotIv.clear()
+            mBinding.dotIv.loadImage(null)
+
+            Handler(Looper.getMainLooper()).postDelayed(2000L) {
+                mBinding.dotIv.clear()
+                mBinding.dotIv.loadImage("http://ci-image.gz.bcebos.com/yunApi/plane_graph/201806/752b365f953c49cb8a9edd6894dca24b.jpg")
+                val iconBeanList = mutableListOf<Dot>()
+                val bean = Dot(0.8f, 0.4f, R.drawable.icon_xhfa)
+                iconBeanList.add(bean)
+                val bean2 = Dot(0.6f, 0.5f, R.drawable.icon_xhfa, true)
+                iconBeanList.add(bean2)
+                mBinding.dotIv.setOnLoadReadyListener(object : OnLoadReadyListener {
+                    override fun onLoadReady() {
+                        mBinding.dotIv.addDots(iconBeanList)
+                    }
+                })
             }
-        })
+
+        }
+
     }
 
     override fun onDestroy() {
