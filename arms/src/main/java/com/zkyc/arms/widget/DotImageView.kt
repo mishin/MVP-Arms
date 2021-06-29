@@ -95,10 +95,16 @@ class DotImageView @JvmOverloads constructor(
         mPhotoView.load(any)
     }
 
+    /**
+     * 添加一个
+     */
     fun addDots(dots: Collection<Dot>?) {
         dots?.forEach { addDot(it) }
     }
 
+    /**
+     * 批量添加
+     */
     fun addDot(dot: Dot) {
         // 记住此时photoView的Matrix
         if (mMatrix == null) {
@@ -127,6 +133,21 @@ class DotImageView @JvmOverloads constructor(
             }
         addView(layout, LayoutParams(mDotWidth, mDotHeight))
         mLayouts.add(layout)
+    }
+
+    /**
+     * 移除一个
+     */
+    fun remove(view: View) {
+        removeView(view)
+    }
+
+    /**
+     * 清空
+     */
+    fun clear() {
+        mLayouts.forEach { removeView(it) }
+        mLayouts.clear()
     }
 
     fun setOnLoadReadyListener(listener: OnLoadReadyListener) {
