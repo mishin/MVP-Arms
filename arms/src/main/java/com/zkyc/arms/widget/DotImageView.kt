@@ -124,8 +124,7 @@ class DotImageView @JvmOverloads constructor(
                 findViewById<ImageView>(R.id.iv_bg).run {
                     isInvisible = !dot.selected
                     if (isVisible) {
-                        GlideApp.with(context).asGif().load(R.drawable.dot_iv_ic_dot_selected)
-                            .into(this)
+                        GlideApp.with(context).asGif().load(R.drawable.dot_iv_ic_dot_selected).into(this)
                     }
                 }
                 setOnClickListener(this@DotImageView)

@@ -4,7 +4,9 @@ import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.viewbinding.ViewBinding
 import com.chad.library.adapter.base.BaseQuickAdapter
+import com.chad.library.adapter.base.entity.node.BaseNode
 import com.chad.library.adapter.base.provider.BaseItemProvider
+import com.chad.library.adapter.base.provider.BaseNodeProvider
 import com.chad.library.adapter.base.viewholder.BaseViewHolder
 
 /**
@@ -21,11 +23,12 @@ class ViewBindingHolder<VB : ViewBinding>(val binding: VB) : BaseViewHolder(bind
  * time   : 2021/5/24 14:12
  * desc   :
  */
-abstract class BaseViewBindingAdapter<T, VB : ViewBinding> : BaseQuickAdapter<T, ViewBindingHolder<VB>>(0) {
+abstract class BaseViewBindingAdapter<T, VB : ViewBinding> :
+    BaseQuickAdapter<T, ViewBindingHolder<VB>>(0) {
 
     override fun onCreateDefViewHolder(
         parent: ViewGroup,
-        viewType: Int
+        viewType: Int,
     ): ViewBindingHolder<VB> {
         val binding = createBinding(LayoutInflater.from(parent.context), parent, viewType)
         return ViewBindingHolder(binding)
@@ -41,7 +44,7 @@ abstract class BaseViewBindingAdapter<T, VB : ViewBinding> : BaseQuickAdapter<T,
     abstract fun createBinding(
         inflater: LayoutInflater,
         parent: ViewGroup?,
-        viewType: Int
+        viewType: Int,
     ): VB
 
     /**
@@ -77,7 +80,47 @@ abstract class BaseViewBindingProvider<T, VB : ViewBinding> : BaseItemProvider<T
     abstract fun createBinding(
         inflater: LayoutInflater,
         parent: ViewGroup?,
-        viewType: Int
+        viewType: Int,
+    ): VB
+
+    /**
+     * 布局绑定
+     */
+    abstract fun bindView(binding: VB, data: T)
+}
+
+/**
+ * author : Saxxhw
+ * email  : xingwangwang@cloudinnov.com
+ * time   : 2021/7/5 11:37
+ * desc   :
+ */
+abstract class BaseViewBindingNodeProvider<T, VB : ViewBinding> : BaseNodeProvider() {
+
+    override val layoutId: Int
+        get() = 0
+
+    override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): BaseViewHolder {
+        val binding = createBinding(LayoutInflater.from(parent.context), parent, viewType)
+        return ViewBindingHolder(binding)
+    }
+
+    @Suppress("UNCHECKED_CAST")
+    override fun convert(helper: BaseViewHolder, item: BaseNode) {
+        if (helper is ViewBindingHolder<*>) {
+            val binding = helper.binding as? VB ?: return
+            val data = item as? T ?: return
+            bindView(binding, data)
+        }
+    }
+
+    /**
+     * 生成ViewBinding实例
+     */
+    abstract fun createBinding(
+        inflater: LayoutInflater,
+        parent: ViewGroup?,
+        viewType: Int,
     ): VB
 
     /**

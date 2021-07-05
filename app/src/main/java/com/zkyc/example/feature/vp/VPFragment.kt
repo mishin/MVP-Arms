@@ -4,20 +4,17 @@ import android.os.Bundle
 import android.os.Handler
 import android.os.Looper
 import android.view.LayoutInflater
-import android.view.View
 import android.view.ViewGroup
 import androidx.core.os.bundleOf
 import androidx.core.os.postDelayed
 import com.zkyc.arms.annotation.UseEventBus
 import com.zkyc.arms.base.fragment.BaseFragment
 import com.zkyc.arms.widget.Dot
-import com.zkyc.arms.widget.OnDotClickListener
 import com.zkyc.arms.widget.OnLoadReadyListener
 import com.zkyc.example.R
 import com.zkyc.example.databinding.VpFragmentBinding
 import org.greenrobot.eventbus.Subscribe
 import org.greenrobot.eventbus.ThreadMode
-import timber.log.Timber
 
 /**
  * author : Saxxhw
@@ -40,10 +37,6 @@ class VPFragment : BaseFragment<VpFragmentBinding>() {
 
     private var mPosition: Int = -1
 
-    override fun onCreate(savedInstanceState: Bundle?) {
-        super.onCreate(savedInstanceState)
-    }
-
     override fun onParseData(bundle: Bundle) {
         super.onParseData(bundle)
         mPosition = bundle.getInt(ARG_POSITION)
@@ -64,10 +57,10 @@ class VPFragment : BaseFragment<VpFragmentBinding>() {
         mBinding.dotIv.loadImage("http://ci-image.gz.bcebos.com/yunApi/plane_graph/201805/3a06328a27644fce9c6dd1404c597d52.jpg")
         initIcon()
 
-        Handler(Looper.getMainLooper()).postDelayed(2000L) {
+//        Handler(Looper.getMainLooper()).postDelayed(2000L) {
 
-            mBinding.dotIv.clear()
-            mBinding.dotIv.loadImage(null)
+//            mBinding.dotIv.clear()
+//            mBinding.dotIv.loadImage(null)
 
             Handler(Looper.getMainLooper()).postDelayed(2000L) {
                 mBinding.dotIv.clear()
@@ -84,12 +77,8 @@ class VPFragment : BaseFragment<VpFragmentBinding>() {
                 })
             }
 
-        }
+//        }
 
-    }
-
-    override fun onDestroy() {
-        super.onDestroy()
     }
 
     @Subscribe(threadMode = ThreadMode.MAIN)
