@@ -1,6 +1,7 @@
 package com.zkyc.arms.library
 
 import android.view.LayoutInflater
+import android.view.View
 import android.view.ViewGroup
 import androidx.viewbinding.ViewBinding
 import com.chad.library.adapter.base.BaseQuickAdapter
@@ -114,6 +115,26 @@ abstract class BaseViewBindingNodeProvider<T, VB : ViewBinding> : BaseNodeProvid
         }
     }
 
+    @Suppress("UNCHECKED_CAST")
+    override fun onClick(helper: BaseViewHolder, view: View, data: BaseNode, position: Int) {
+        super.onClick(helper, view, data, position)
+        if (helper is ViewBindingHolder<*>) {
+            val binding = helper.binding as? VB ?: return
+            val item = data as? T ?: return
+            onClick(binding, view, item, position)
+        }
+    }
+
+    @Suppress("UNCHECKED_CAST")
+    override fun onChildClick(helper: BaseViewHolder, view: View, data: BaseNode, position: Int) {
+        super.onChildClick(helper, view, data, position)
+        if (helper is ViewBindingHolder<*>) {
+            val binding = helper.binding as? VB ?: return
+            val item = data as? T ?: return
+            onChildClick(binding, view, item, position)
+        }
+    }
+
     /**
      * 生成ViewBinding实例
      */
@@ -127,4 +148,8 @@ abstract class BaseViewBindingNodeProvider<T, VB : ViewBinding> : BaseNodeProvid
      * 布局绑定
      */
     abstract fun bindView(binding: VB, data: T)
+
+    open fun onClick(binding: VB, view: View, data: T, position: Int) {}
+
+    open fun onChildClick(binding: VB, view: View, data: T, position: Int) {}
 }
