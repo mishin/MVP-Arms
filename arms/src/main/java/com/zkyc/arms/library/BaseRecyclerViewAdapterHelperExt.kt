@@ -116,6 +116,16 @@ abstract class BaseViewBindingNodeProvider<T, VB : ViewBinding> : BaseNodeProvid
     }
 
     @Suppress("UNCHECKED_CAST")
+    override fun convert(helper: BaseViewHolder, item: BaseNode, payloads: List<Any>) {
+        super.convert(helper, item, payloads)
+        if (helper is ViewBindingHolder<*>) {
+            val binding = helper.binding as? VB ?: return
+            val data = item as? T ?: return
+            bindView(binding, data, payloads)
+        }
+    }
+
+    @Suppress("UNCHECKED_CAST")
     override fun onClick(helper: BaseViewHolder, view: View, data: BaseNode, position: Int) {
         super.onClick(helper, view, data, position)
         if (helper is ViewBindingHolder<*>) {
@@ -147,7 +157,9 @@ abstract class BaseViewBindingNodeProvider<T, VB : ViewBinding> : BaseNodeProvid
     /**
      * 布局绑定
      */
-    abstract fun bindView(binding: VB, data: T)
+    open fun bindView(binding: VB, data: T) {}
+
+    open fun bindView(binding: VB, data: T, payloads: List<Any>) {}
 
     open fun onClick(binding: VB, view: View, data: T, position: Int) {}
 
