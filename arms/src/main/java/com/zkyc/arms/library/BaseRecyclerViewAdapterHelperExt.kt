@@ -36,7 +36,12 @@ abstract class BaseViewBindingAdapter<T, VB : ViewBinding> :
     }
 
     override fun convert(holder: ViewBindingHolder<VB>, item: T) {
-        bindView(holder.binding, item)
+        bindView(holder.binding, item, holder.layoutPosition)
+    }
+
+    override fun convert(holder: ViewBindingHolder<VB>, item: T, payloads: List<Any>) {
+        super.convert(holder, item, payloads)
+        bindView(holder.binding, item, holder.layoutPosition, payloads)
     }
 
     /**
@@ -51,7 +56,9 @@ abstract class BaseViewBindingAdapter<T, VB : ViewBinding> :
     /**
      * 布局绑定
      */
-    abstract fun bindView(binding: VB, data: T)
+    open fun bindView(binding: VB, data: T, position: Int) {}
+
+    open fun bindView(binding: VB, data: T, position: Int, payloads: List<Any>) {}
 }
 
 /**
@@ -71,7 +78,7 @@ abstract class BaseViewBindingProvider<T, VB : ViewBinding> : BaseItemProvider<T
     override fun convert(helper: BaseViewHolder, item: T) {
         if (helper is ViewBindingHolder<*>) {
             val binding = helper.binding as? VB ?: return
-            bindView(binding, item)
+            bindView(binding, item, helper.layoutPosition)
         }
     }
 
@@ -87,7 +94,7 @@ abstract class BaseViewBindingProvider<T, VB : ViewBinding> : BaseItemProvider<T
     /**
      * 布局绑定
      */
-    abstract fun bindView(binding: VB, data: T)
+    abstract fun bindView(binding: VB, data: T, position: Int)
 }
 
 /**
@@ -111,7 +118,7 @@ abstract class BaseViewBindingNodeProvider<T, VB : ViewBinding> : BaseNodeProvid
         if (helper is ViewBindingHolder<*>) {
             val binding = helper.binding as? VB ?: return
             val data = item as? T ?: return
-            bindView(binding, data)
+            bindView(binding, data, helper.layoutPosition)
         }
     }
 
@@ -121,7 +128,7 @@ abstract class BaseViewBindingNodeProvider<T, VB : ViewBinding> : BaseNodeProvid
         if (helper is ViewBindingHolder<*>) {
             val binding = helper.binding as? VB ?: return
             val data = item as? T ?: return
-            bindView(binding, data, payloads)
+            bindView(binding, data, helper.layoutPosition, payloads)
         }
     }
 
@@ -157,9 +164,9 @@ abstract class BaseViewBindingNodeProvider<T, VB : ViewBinding> : BaseNodeProvid
     /**
      * 布局绑定
      */
-    open fun bindView(binding: VB, data: T) {}
+    open fun bindView(binding: VB, data: T, position: Int) {}
 
-    open fun bindView(binding: VB, data: T, payloads: List<Any>) {}
+    open fun bindView(binding: VB, data: T, position: Int, payloads: List<Any>) {}
 
     open fun onClick(binding: VB, view: View, data: T, position: Int) {}
 

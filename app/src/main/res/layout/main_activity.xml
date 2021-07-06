@@ -52,8 +52,15 @@
             android:numColumns="5"
             android:padding="8dp"
             android:verticalSpacing="8dp"
+            android:visibility="gone"
             app:ngv_editable="true"
             app:ngv_maxItemCount="5" />
+
+        <com.zkyc.arms.widget.OptionsView
+            android:id="@+id/options_view"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_margin="16dp" />
     </LinearLayout>
 
 </androidx.constraintlayout.widget.ConstraintLayout>

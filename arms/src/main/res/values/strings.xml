@@ -31,4 +31,6 @@
     <string name="err_30001">设备已绑定</string>
     <string name="err_500001">已接单，请勿重复操作</string>
     <string name="unknown_error">未知错误</string>
+    <!-- OptionsView -->
+    <string name="options_view_option_number">选项%1$d</string>
 </resources>
